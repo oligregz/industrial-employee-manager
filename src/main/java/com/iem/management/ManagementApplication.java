@@ -3,11 +3,14 @@ package com.iem.management;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.OptionalInt;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import com.iem.management.models.Funcionario;
 
 public class ManagementApplication {
@@ -29,6 +32,8 @@ public class ManagementApplication {
 	  funcionariosPorFuncao();
 	  // 3.7
 	  funcionariosMesDezeDose();
+	  // 3.8
+	  nomeIdadeFuncionarioMaisVelho();
 	}
 
 	public static ArrayList<Funcionario> insereFuncionariosEmOrdem() {
@@ -141,5 +146,25 @@ public class ManagementApplication {
       .collect(Collectors.toList());
       System.out.println(funcionariosMeses);
       return funcionariosMeses;
+	}
+	
+	public static void nomeIdadeFuncionarioMaisVelho() {
+	  funcionarios.clear();
+	  insereFuncionariosEmOrdem();
+	  
+	  LocalDate hoje = LocalDate.now();
+	  
+	  int idadeMaisVelho = funcionarios.stream()
+	      .mapToInt(f -> Period.between(f.getDataNascimento(), hoje).getYears())
+	      .max().getAsInt();
+	  
+	   Funcionario maisVelho = funcionarios.stream()
+	  .filter(f -> Period.between(f.getDataNascimento(), hoje).getYears() == idadeMaisVelho)
+	  .findFirst()
+	  .orElse(null);
+	  
+	  System.out.println("Funcionário mais velho é o "
+	  + maisVelho.getNome() + " com "
+	      + idadeMaisVelho + " anos de idade.");
 	}
 }

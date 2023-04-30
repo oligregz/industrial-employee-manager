@@ -25,6 +25,8 @@ public class ManagementApplication {
 	  aumentoSalario();
 	  // 3.5
 	  agrupaPorFuncao();
+	  // 3.6
+	  funcionariosPorFuncao();
 	}
 
 	public static ArrayList<Funcionario> insereFuncionariosEmOrdem() {
@@ -112,6 +114,18 @@ public class ManagementApplication {
 	    }
 	  }
 	  System.out.println(funcionarioPorFuncao);
+	  return funcionarioPorFuncao;
+	}
+	
+	public static Map<String, List<Funcionario>> funcionariosPorFuncao() {
+	  funcionarios.clear();
+	  insereFuncionariosEmOrdem();
+	  
+	  Map<String, List<Funcionario>> funcionarioPorFuncao = agrupaPorFuncao();
+	  
+	  funcionarioPorFuncao.values().stream()
+	  .flatMap(listaFuncao -> listaFuncao.stream())
+	  .forEach(f -> System.out.println(f));
 	  return funcionarioPorFuncao;
 	}
 }

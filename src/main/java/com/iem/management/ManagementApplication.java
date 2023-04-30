@@ -20,6 +20,8 @@ public class ManagementApplication {
 	  removeJoao();
 	  // 3.3
 	  formatarFuncionarios();
+	  // 3.4
+	  aumentoSalario();
 	}
 
 	public static ArrayList<Funcionario> insereFuncionariosEmOrdem() {
@@ -75,4 +77,15 @@ public class ManagementApplication {
             numberFormatter.format(f.getSalario())));
       }
 
+	public static ArrayList<Funcionario> aumentoSalario() {
+	  funcionarios.clear();
+	  insereFuncionariosEmOrdem();
+	      
+	  funcionarios.stream()
+	  .forEach(f -> f.setSalario(
+	      ((new BigDecimal("0.10").multiply(f.getSalario())).add(f.getSalario()))
+	      ));
+	  System.out.println(funcionarios);
+	  return funcionarios;
+	}
 }

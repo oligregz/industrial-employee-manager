@@ -35,6 +35,8 @@ public class ManagementApplication {
 	  nomeIdadeFuncionarioMaisVelho();
 	  // 3.9
 	  funcionarioEmOrdemAlfabetica();
+	  // 3.10
+	  geraSalarios();
 	}
 
 	public static ArrayList<Funcionario> insereFuncionariosEmOrdem() {
@@ -178,5 +180,13 @@ public class ManagementApplication {
 	  .collect(Collectors.toList());
 	  
 	  System.out.println(organizadorDeOrdemAlfabetica);
+	}
+	
+	public static void geraSalarios() {
+      funcionarios.clear();
+      insereFuncionariosEmOrdem();
+      
+      funcionarios.stream()
+      .forEach(f -> System.out.println(f.getSalario()));
 	}
 }

@@ -27,6 +27,8 @@ public class ManagementApplication {
 	  agrupaPorFuncao();
 	  // 3.6
 	  funcionariosPorFuncao();
+	  // 3.7
+	  funcionariosMesDezeDose();
 	}
 
 	public static ArrayList<Funcionario> insereFuncionariosEmOrdem() {
@@ -127,5 +129,17 @@ public class ManagementApplication {
 	  .flatMap(listaFuncao -> listaFuncao.stream())
 	  .forEach(f -> System.out.println(f));
 	  return funcionarioPorFuncao;
+	}
+	
+	public static List<Funcionario> funcionariosMesDezeDose() {
+      funcionarios.clear();
+      insereFuncionariosEmOrdem();
+      
+      List<Funcionario> funcionariosMeses = funcionarios.stream()
+      .filter(f -> f.getDataNascimento().getMonthValue() == 10
+      || f.getDataNascimento().getMonthValue() == 12)
+      .collect(Collectors.toList());
+      System.out.println(funcionariosMeses);
+      return funcionariosMeses;
 	}
 }

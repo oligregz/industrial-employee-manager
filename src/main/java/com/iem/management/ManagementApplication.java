@@ -1,11 +1,12 @@
 package com.iem.management;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import com.iem.management.models.Funcionario;
 
@@ -22,6 +23,8 @@ public class ManagementApplication {
 	  formatarFuncionarios();
 	  // 3.4
 	  aumentoSalario();
+	  // 3.5
+	  agrupaPorFuncao();
 	}
 
 	public static ArrayList<Funcionario> insereFuncionariosEmOrdem() {
@@ -87,5 +90,28 @@ public class ManagementApplication {
 	      ));
 	  System.out.println(funcionarios);
 	  return funcionarios;
+	}
+
+	public static Map<String, List<Funcionario>> agrupaPorFuncao() {
+	  funcionarios.clear();
+	  insereFuncionariosEmOrdem();
+	  
+	  Map<String, List<Funcionario>> funcionarioPorFuncao = new HashMap<>();
+	  
+	  for (Funcionario f : funcionarios) {	   
+	    
+	    if (funcionarioPorFuncao.containsKey(f.getFuncao())) {
+	      List<Funcionario> listaFuncionarios = funcionarioPorFuncao
+	          .get(f.getFuncao());
+	      listaFuncionarios.add(f);
+
+	    } else {
+	      List<Funcionario> listaFuncionarios = new ArrayList<>();
+	      listaFuncionarios.add(f);
+	      funcionarioPorFuncao.put(f.getFuncao(), listaFuncionarios);
+	    }
+	  }
+	  System.out.println(funcionarioPorFuncao);
+	  return funcionarioPorFuncao;
 	}
 }

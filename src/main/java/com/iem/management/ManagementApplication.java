@@ -5,12 +5,11 @@ import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.OptionalInt;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import com.iem.management.models.Funcionario;
 
 public class ManagementApplication {
@@ -34,6 +33,8 @@ public class ManagementApplication {
 	  funcionariosMesDezeDose();
 	  // 3.8
 	  nomeIdadeFuncionarioMaisVelho();
+	  // 3.9
+	  funcionarioEmOrdemAlfabetica();
 	}
 
 	public static ArrayList<Funcionario> insereFuncionariosEmOrdem() {
@@ -166,5 +167,16 @@ public class ManagementApplication {
 	  System.out.println("Funcionário mais velho é o "
 	  + maisVelho.getNome() + " com "
 	      + idadeMaisVelho + " anos de idade.");
+	}
+	
+	public static void funcionarioEmOrdemAlfabetica() {
+	  funcionarios.clear();
+	  insereFuncionariosEmOrdem();
+	  
+	  List<Funcionario> organizadorDeOrdemAlfabetica = funcionarios.stream()
+	  .sorted(Comparator.comparing(Funcionario::getNome))
+	  .collect(Collectors.toList());
+	  
+	  System.out.println(organizadorDeOrdemAlfabetica);
 	}
 }

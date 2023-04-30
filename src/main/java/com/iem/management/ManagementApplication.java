@@ -1,6 +1,7 @@
 package com.iem.management;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.Period;
@@ -37,6 +38,8 @@ public class ManagementApplication {
 	  funcionarioEmOrdemAlfabetica();
 	  // 3.10
 	  geraSalarios();
+	  // 3.11
+	  geraSalariosMinimosPorFuncionario();
 	}
 
 	public static ArrayList<Funcionario> insereFuncionariosEmOrdem() {
@@ -188,5 +191,18 @@ public class ManagementApplication {
       
       funcionarios.stream()
       .forEach(f -> System.out.println(f.getSalario()));
+	}
+	
+	public static void geraSalariosMinimosPorFuncionario() {
+	  funcionarios.clear();
+	  insereFuncionariosEmOrdem();
+	  
+	  BigDecimal salarioMinimo = new BigDecimal("1212.00");
+	  
+	  funcionarios.stream()
+	  .forEach(f -> System.out.println("Quantidade de salários que " + f.getNome()
+	      + " ganha: "
+	      + f.getSalario().divide(salarioMinimo, 0, RoundingMode.HALF_DOWN)));
+	  
 	}
 }
